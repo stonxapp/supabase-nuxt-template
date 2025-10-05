@@ -29,7 +29,6 @@ export const useAuthStore = defineStore('auth', () => {
       } = await supabase.auth.getSession()
 
       if (error) {
-        console.error('Error fetching user session:', error)
         return { error }
       }
 
@@ -37,7 +36,6 @@ export const useAuthStore = defineStore('auth', () => {
       initialized.value = true
       return { error: null }
     } catch (error) {
-      console.error('Error in fetchUser:', error)
       return { error }
     } finally {
       loading.value = false

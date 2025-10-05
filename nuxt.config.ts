@@ -20,6 +20,13 @@ export default defineNuxtConfig({
     },
   },
 
+  // PostCSS configuration for Tailwind CSS v4
+  postcss: {
+    plugins: {
+      '@tailwindcss/postcss': {},
+    },
+  },
+
   // Test configuration
   test: {
     environment: 'nuxt',
