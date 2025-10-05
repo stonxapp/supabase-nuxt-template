@@ -160,7 +160,7 @@ const authStore = useAuthStore()
 
 // Reactive state
 console.log(authStore.isAuthenticated) // boolean
-console.log(authStore.userEmail)       // string | null
+console.log(authStore.userEmail) // string | null
 ```
 
 ## 🗄️ Database Operations
@@ -247,6 +247,7 @@ describe('UserList', () => {
 ### Other Platforms
 
 The template is compatible with:
+
 - Netlify
 - Railway
 - Render
@@ -272,13 +273,17 @@ const supabase = useSupabase()
 
 const channel = supabase
   .channel('users')
-  .on('postgres_changes', {
-    event: '*',
-    schema: 'public',
-    table: 'users'
-  }, (payload) => {
-    console.log('Change received!', payload)
-  })
+  .on(
+    'postgres_changes',
+    {
+      event: '*',
+      schema: 'public',
+      table: 'users',
+    },
+    (payload) => {
+      console.log('Change received!', payload)
+    }
+  )
   .subscribe()
 ```
 

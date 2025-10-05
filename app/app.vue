@@ -1,10 +1,14 @@
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
+  <div
+    class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors"
+  >
     <header class="bg-primary-600 dark:bg-primary-800 text-white p-4 shadow-lg">
       <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-2xl font-bold">Supabase Nuxt Starter</h1>
-        <button @click="toggleDarkMode"
-          class="p-2 rounded-lg bg-primary-700 dark:bg-primary-900 hover:bg-primary-800 dark:hover:bg-primary-900 transition-colors">
+        <button
+          class="p-2 rounded-lg bg-primary-700 dark:bg-primary-900 hover:bg-primary-800 dark:hover:bg-primary-900 transition-colors"
+          @click="toggleDarkMode"
+        >
           {{ isDark ? '☀️ Light' : '🌙 Dark' }}
         </button>
       </div>

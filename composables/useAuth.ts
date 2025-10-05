@@ -17,7 +17,10 @@ export const useAuth = () => {
   // Initialize auth state
   const initializeAuth = async () => {
     try {
-      const { data: { session }, error } = await supabase.auth.getSession()
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession()
 
       if (error) {
         state.error = error
@@ -32,7 +35,7 @@ export const useAuth = () => {
   }
 
   // Sign up with email and password
-  const signUp = async (email: string, password: string, metadata?: Record<string, any>) => {
+  const signUp = async (email: string, password: string, metadata?: Record<string, unknown>) => {
     state.loading = true
     state.error = null
 
@@ -161,12 +164,10 @@ export const useAuth = () => {
   }
 
   // Listen to auth state changes
-  const { data: authListener } = supabase.auth.onAuthStateChange(
-    async (event, session) => {
-      state.user = session?.user ?? null
-      state.loading = false
-    }
-  )
+  const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+    state.user = session?.user ?? null
+    state.loading = false
+  })
 
   // Cleanup listener on unmount
   onUnmounted(() => {
@@ -174,7 +175,7 @@ export const useAuth = () => {
   })
 
   // Initialize auth on client-side
-  if (process.client) {
+  if (import.meta.client) {
     initializeAuth()
   }
 

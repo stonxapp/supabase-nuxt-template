@@ -23,7 +23,10 @@ export const useAuthStore = defineStore('auth', () => {
   const fetchUser = async () => {
     try {
       loading.value = true
-      const { data: { session }, error } = await supabase.auth.getSession()
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession()
 
       if (error) {
         console.error('Error fetching user session:', error)
@@ -62,7 +65,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const signUp = async (email: string, password: string, metadata?: Record<string, any>) => {
+  const signUp = async (email: string, password: string, metadata?: Record<string, unknown>) => {
     try {
       loading.value = true
       const { data, error } = await supabase.auth.signUp({
@@ -117,13 +120,13 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Listen to auth state changes
   const setupAuthListener = () => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        user.value = session?.user ?? null
-        loading.value = false
-        initialized.value = true
-      }
-    )
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      user.value = session?.user ?? null
+      loading.value = false
+      initialized.value = true
+    })
 
     // Cleanup on store destruction
     onUnmounted(() => {
@@ -132,7 +135,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   // Initialize auth state on client-side
-  if (process.client) {
+  if (import.meta.client) {
     fetchUser()
     setupAuthListener()
   }

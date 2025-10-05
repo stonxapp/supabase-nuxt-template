@@ -1,12 +1,14 @@
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
-import * as schema from '~/server/database/schema'
+import * as schema from '../database/schema'
 
 // Database connection string from environment
 const connectionString = process.env.SUPABASE_DB_URL || process.env.DATABASE_URL
 
 if (!connectionString) {
-  throw new Error('Database connection string is required. Please set SUPABASE_DB_URL or DATABASE_URL environment variable.')
+  throw new Error(
+    'Database connection string is required. Please set SUPABASE_DB_URL or DATABASE_URL environment variable.'
+  )
 }
 
 // Create postgres client

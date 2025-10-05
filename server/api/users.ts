@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
-import { db } from '~/server/utils/db'
-import { users, insertUserSchema, selectUserSchema, updateUserSchema, type User } from '~/server/database/schema'
+import { db } from '../utils/db'
+import { users, insertUserSchema, selectUserSchema, updateUserSchema } from '../database/schema'
 
 export default defineEventHandler(async (event) => {
   const method = event.node.req.method
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
         } else {
           // Get all users
           const allUsers = await db.select().from(users).orderBy(users.createdAt)
-          const validatedUsers = allUsers.map(user => selectUserSchema.parse(user))
+          const validatedUsers = allUsers.map((user) => selectUserSchema.parse(user))
           return { users: validatedUsers }
         }
       }
@@ -81,11 +81,7 @@ export default defineEventHandler(async (event) => {
         const validatedData = updateUserSchema.parse(body)
 
         // Check if user exists
-        const existingUser = await db
-          .select()
-          .from(users)
-          .where(eq(users.id, userId))
-          .limit(1)
+        const existingUser = await db.select().from(users).where(eq(users.id, userId)).limit(1)
 
         if (existingUser.length === 0) {
           throw createError({
@@ -123,11 +119,7 @@ export default defineEventHandler(async (event) => {
         const userId = String(id)
 
         // Check if user exists
-        const existingUser = await db
-          .select()
-          .from(users)
-          .where(eq(users.id, userId))
-          .limit(1)
+        const existingUser = await db.select().from(users).where(eq(users.id, userId)).limit(1)
 
         if (existingUser.length === 0) {
           throw createError({
